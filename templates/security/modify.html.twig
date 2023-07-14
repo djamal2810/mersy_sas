@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de comptes utilisateurs{% endblock %}
+
+{% block body %}
+
+{% block javascripts %}
+	
+{% endblock %}
+
+
+	<main id="main">
+		<!-- ======= Registration Section ======= -->
+		<section id="contact" class="contact">
+			<div class="container" data-aos="fade-up">
+				<div class="section-title">
+          			<h2>Gestion de compte utilisateur </h2>
+          			<h3>Modification d'information d'utilisateur</h3> 
+          			{# <p>Creez votre compte</p> #}
+        		</div>
+				
+				<div div class="card-body align-items-center d-flex justify-content-center">
+					{% if accountManagementForm is not null %}
+						{{ form_start(accountManagementForm) }}
+					
+						
+						<div class="form-group form-group-sm">
+                   					{{ form_label(accountManagementForm.username)}}
+                    				{{ form_widget(accountManagementForm.username, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+	
+								<div class="form-group form-group-sm">
+                    				{{ form_label(accountManagementForm.firstName)}}
+                   					{{ form_widget(accountManagementForm.firstName, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+                    				{{ form_label(accountManagementForm.lastName)}}
+                     				{{ form_widget(accountManagementForm.lastName, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+									{{ form_label(accountManagementForm.email)}}
+									{{ form_widget(accountManagementForm.email, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+								
+								<div class="form-group form-group-sm">
+									{{ form_label(accountManagementForm.telephone)}}
+									{{ form_widget(accountManagementForm.telephone, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+             						{{ form_label(accountManagementForm.password.first)}}
+									{{ form_widget(accountManagementForm.password.first, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+                    				{{ form_label(accountManagementForm.password.second)}}
+                     				{{ form_widget(accountManagementForm.password.second, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+								
+								<div class="form-group form-group-sm">
+									{#{{ form_label(userAccountCreationForm.userCategory)}}#}
+                    				{{ form_widget(accountManagementForm.userCategory, { 'attr': {'id': 'accountManagementFormUserCategoryId', 'class': 'accountManagementFormUserCategoryClass', 'style': 'margin:4px' } })}}
+              					</div>
+								
+								<div id="checkbox_position">
+								</div>
+								
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+								{{ form_widget(accountManagementForm._editor_check_box_checked, { 'attr': {'id': 'accountManagementFormCheckValueId', 'class': 'accountManagementFormCheckValueClass' } })}}
+					
+								{{ form_end(accountManagementForm) }}
+								
+					{% endif %}
+				</div>
+				
+			</div><!-- End Container Section -->			
+    	</section><!-- End Contact Section -->
+	</main><!-- End #main -->
+	
+	<script id="navigationListItemsId" data-name="userConnectionId" src="{{ asset('build/navigationListItems.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('build/modifyArticleNavigationTabs.js') }}"></script> 
+
+	{# <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> #}
+	<script type="text/javascript" src="{{ asset('build/jquery/jquery.min.js') }}"></script>
+	<script src="{{ asset('build/custom/js/user_account_modification_editor_checkbox.js') }}"></script>
+	<script src="{{ asset('build/custom/js/user_account_modification_editor_dropdown_list.js') }}"></script>	
+
+{% endblock %}

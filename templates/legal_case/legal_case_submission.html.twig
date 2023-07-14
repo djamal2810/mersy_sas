@@ -1,0 +1,229 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} Soumission de demande {% endtrans %}{% endblock %}
+
+{% block body %}
+
+	<div class="container" data-aos="fade-up" style="position:relative; width:100%; margin-bottom:50px; margin-top:20px;"> <!-- Beginning of Main Page Container Div -->
+		<div class="row">  <!-- Beginning of Main Page Row -->
+			<div class="col-lg-12 col-sm-9 col-xs-9" style="overflow-x: auto;" id="our_services_page_body_id"> <!-- Beginning Of Main Col Div -->
+				<div class="card"> <!-- Beginning of card Div-->
+					<div class="card-header main-page-title" >
+    					{% trans %} Soumission d'une demande de service {% endtrans %}
+  					</div>
+					
+				
+					<div class="container-fluid">   <!-- Beginning of fluid container Div -->
+    					<div class="row"> <!-- Beginning of Row Div -->
+
+	  
+	  						<div class="col-lg-2" style="background-color:#F0FFFF"> <!-- Flow Frame Section -->
+								{% trans %}Etapes{% endtrans %}:
+								{% include '@CraueFormFlow/FormFlow/stepList.html.twig' %}
+							</div> <!-- End of Flow Frame Section -->
+		
+		
+		
+							<div class="col-lg-8"> <!-- Form Frame Section -->
+								{{ form_start(form, { 'attr': {'class': 'legalCaseModificationForm', 'enctype': 'multipart/form-data'} }) }}
+								
+								{% set formStep = flow.getCurrentStepNumber() %}
+			
+								<fieldset>
+									<legend> {% trans %}Etape{% endtrans %} {{ flow.getCurrentStepNumber() }}: <b>{{ flow.getCurrentStepLabel() | trans }} </b>
+									</legend>
+		 
+									{{ form_errors(form) }}
+		 
+									{% if formStep == 1 %}
+		
+										<div class="strip-courses">
+											<div class="description">
+												<div class="row">
+													<div class="col-md-4">
+														<div class="block-align-horizontal">
+															{{ form_label(form.firstName) }}
+														</div>
+														<div id="tradeName">
+															{{ form_widget(form.firstName, {'attr': {'class': 'form-control ie7-margin'}}) }}
+														</div>
+													</div>
+													<div class="col-md-4">
+														<div class="block-align-horizontal">
+															{{ form_label(form.lastName) }}
+														</div>
+														<div class="block-align-horizontal">
+														</div>
+														<div>
+															{{ form_widget(form.lastName, {'attr': {'class': 'form-control ie7-margin'}}) }}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div><!-- end strip-->
+					
+										<div class="strip-courses">
+											<div class="title-course">
+												<h3>Contact</h3>
+											</div>
+											<div class="description">	
+    											<div class="row">
+					 								<div class="col-md-4">
+            											<div class="block-align-horizontal">
+                											{{ form_label(form.contact.town) }}
+            											</div>
+            											<div id="ville">
+                											{{ form_widget(form.contact.town, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            											</div>
+        											</div>
+        											<div class="col-md-4">
+            											<div class="block-align-horizontal">
+                											{{ form_label(form.contact.neighborhood) }}
+            											</div>
+            											<div id="quartier">
+                											{{ form_widget(form.contact.neighborhood, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            											</div>
+        											</div>
+        											<div class="col-md-4">
+            											<div class="block-align-horizontal">
+                											{{ form_label(form.contact.street) }}
+            											</div>
+            											<div  class="block-align-horizontal">
+            											</div>
+														<div>
+                											{{ form_widget(form.contact.street, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            											</div>
+        											</div>
+    											</div>
+    											<div class="row">
+        											<div class="col-md-4">
+            											<div class="block-align-horizontal">
+                											{{ form_label(form.contact.postalCode) }}
+            											</div>
+            											<div  class="block-align-horizontal">
+            											</div>
+            											<div>
+                											{{ form_widget(form.contact.postalCode, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            											</div>
+        											</div>
+        											<div class="col-md-4">
+            											<div class="block-align-horizontal">
+                											{{ form_label(form.contact.telephone) }}
+            											</div>
+            											<div id="telephone">
+                											{{ form_widget(form.contact.telephone, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            											</div>
+        											</div>
+        											<div class="col-md-4">
+            											<div class="block-align-horizontal">
+                											{{ form_label(form.contact.email) }}
+            											</div>
+            											<div id="email">
+                											{{ form_widget(form.contact.email, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            											</div>
+        											</div>
+    											</div>
+											</div>
+										</div><!-- end strip-->
+		
+									{% elseif formStep == 2 %} 
+		
+           								<div class="block-align-horizontal">
+            								{{ form_label(form.casePresentation) }}
+           								</div>
+            							<div id="ville">
+           									{{ form_widget(form.casePresentation, {'attr': {'class': 'form-control ie7-margin'}}) }}
+         								</div>
+										
+									{% elseif formStep == 3 %}
+										<div class="description">
+											{% import "legal_case/prototype.html.twig" as template_prototype %}
+										<div>
+							
+										<table id="documents_list" class="table table-bordered table-striped table-condensed">
+											<thead>
+												<tr>								
+													<th>{% trans %}Document{% endtrans %}</th>
+													<th><a style="text-decoration: none;">{% trans %}Action{% endtrans %}</a></th>					
+												</tr>
+											</thead>
+								
+											<tbody id="legalCaseDocuments" class="legalCaseDocuments" data-index="{{ form.legalCaseDocuments|length }}" data-prototype="{{ template_prototype.table_row_prototype(form.legalCaseDocuments.vars.prototype)|e('html_attr') }}">
+									
+												{% if form.legalCaseDocuments |length > 0 %}
+													{% set i = 0 %}
+													{% for legalCaseDocument in form.legalCaseDocuments %}
+														<tr id="legalCaseDocument" class="legalCaseDocument">
+															<td>
+																{{ legalCaseDocument.preferredName.vars.value }} 
+															</td>
+															<td>
+																<strong class="btn btn-danger gestion-legal-case-document" id="legalCaseDocument_{{i}}" >
+																	{% trans %}Supprimez{% endtrans %}
+																</strong>
+															</td>
+															<td>
+																{{ form_row(legalCaseDocument, {'attr': {'class': 'defaultHidden'}}) }}
+															</td>
+														</tr>
+														{% set i = i + 1 %}
+													{% endfor %}
+												{% endif %}
+									
+											</tbody>
+										</table>
+											
+										<span id="legalCaseDocumentSpanId"></span>
+				
+										<script src="{{asset('build/assets/custom/js/legal_case_customer_modification_form_step_3.js')}}"></script>
+										<hr>
+		
+									{% elseif formStep == 4 %} 
+           								<div class="block-align-horizontal">
+            								{{ form_label(form.expectations) }}
+           								</div>
+            							<div id="ville">
+           									{{ form_widget(form.expectations, {'attr': {'class': 'form-control ie7-margin'}}) }}
+         								</div>
+                
+									{% endif %}
+		
+									<div id="salutation">
+									</div>
+		
+								</fieldset>
+	
+								{{ form_rest(form) }}
+			
+								<div style="margin:4px">
+									{% include '@CraueFormFlow/FormFlow/buttons.html.twig' with {
+										craue_formflow_button_class_last: 'btn btn-primary',
+										craue_formflow_button_class_back: 'btn',
+										craue_formflow_button_class_reset: 'btn btn-warning',
+										craue_formflow_button_label_next: 'Suivant',
+										craue_formflow_button_label_finish: 'Terminer',
+										craue_formflow_button_label_back: 'Precedent',
+										craue_formflow_button_label_reset: 'Recommencer',
+									} %}
+								</div>
+
+								{{ form_end(form) }}
+							</div> <!-- End of Form Frame Section -->
+	  
+	  
+    					</div> <!-- Beginning of Row Div -->
+  					</div>  <!-- End of fluid container Div -->
+
+
+
+	{#<script id="navigationListItemsId" data-name="navigationLegalCaseId" src="{{ asset('build/assets/custom/js/navigation_list_items.js') }}"></script>#}
+				
+					
+				</div> <!-- End of card Div -->
+			</div> <!-- Beginning Of Main Col Div -->
+		</div>   <!-- End Of Main Page Row -->
+	</div><!-- Beginning of Main Page Container Div -->	
+	
+	
+
+{% endblock %}

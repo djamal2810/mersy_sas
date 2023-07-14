@@ -1,0 +1,87 @@
+.submitted{
+    background-color: #4b0082;
+}
+
+.categorized{
+    background-color: #964B00;
+}
+
+.rejected{
+    background-color: #f00;
+}
+
+.inProgress{
+    background-color: #00f;
+}
+
+.incomplete{
+    background-color: #ff6600;
+}
+
+.assigned{
+    background-color: #ffd700;
+}
+
+.completed{
+    background-color: #008000;
+}
+
+.submitted, .categorized, .rejected, .inProgress, .incomplete, .assigned, .completed{
+    color: #fff;
+    text-align: center;
+}
+
+.submittedLegend, .categorizedLegend, .rejectedLegend, .inProgressLegend, .incompleteLegend, .assignedLegend, .completedLegend{
+    background-color: #fff;
+}
+
+.submittedLegend{
+    border-top: 1px solid #4b0082 !important;
+    border-bottom: 1px solid #4b0082 !important;
+}
+
+.categorizedLegend{
+    border-top: 1px solid #964B00 !important;
+    border-bottom: 1px solid #964B00 !important;
+}
+
+.rejectedLegend{
+    border-top: 1px solid #f00 !important;
+    border-bottom: 1px solid #f00 !important;
+}
+
+.inProgressLegend{
+    border-top: 1px solid #00f !important;
+    border-bottom: 1px solid #00f !important;
+}
+
+.incompleteLegend{
+    border-top: 1px solid #ff6600 !important;
+    border-bottom: 1px solid #ff6600 !important;
+
+}
+
+.assignedLegend{
+    border-top: 1px solid #ffd700 !important;
+    border-bottom: 1px solid #ffd700 !important;
+
+}
+
+.completedLegend{
+    border-top: 1px solid #008000 !important;
+    border-bottom: 1px solid #008000 !important;
+    border-right: 1px solid #008000 !important;
+}
+
+#legende a, #legende i{
+    color: #fff;
+    font-weight: bold;
+}
+
+#legende a:hover{
+    color: #000;
+}
+
+td a:hover{
+    color: #000;
+}

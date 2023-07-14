@@ -1,0 +1,138 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} Création de compte {% endtrans %}{% endblock %}
+
+
+
+{% block body %}
+
+<main>
+	<div class="container" style="position:relative; width:100%; margin-bottom:50px; margin-top:20px;"> <!-- Beginning of Main Page Container Div -->
+		<div class="row">  <!-- Beginning of Main Page Row -->
+			<div class="col col-lg-9 col-sm-6 col-xs-3" style="overflow-x: auto;"> <!-- Beginning Of Main Col Div -->
+				
+				<div class="card" style=""> <!-- Beginning of right frame card-->
+
+      				<div class="card-header main-page-title">
+    					{% trans %} Création de compte {% endtrans %}
+  					</div>
+					 
+					 <div div class="card-body align-items-center d-flex justify-content-center">
+						
+					 	{{ form_start(userAccountCreationForm, {'attr': {'id': 'adminUserAccountCreationFormId'}}) }}
+					
+							<div class="form-group form-group-sm">
+                   				{{ form_label(userAccountCreationForm.username)}}
+                    			{{ form_widget(userAccountCreationForm.username, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+	
+							<div class="form-group form-group-sm">
+                    			{{ form_label(userAccountCreationForm.firstName)}}
+                   				{{ form_widget(userAccountCreationForm.firstName, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                    			{{ form_label(userAccountCreationForm.lastName)}}
+                     			{{ form_widget(userAccountCreationForm.lastName, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+								{{ form_label(userAccountCreationForm.email)}}
+								{{ form_widget(userAccountCreationForm.email, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+								
+							<div class="form-group form-group-sm">
+								{{ form_label(userAccountCreationForm.telephone)}}
+								{{ form_widget(userAccountCreationForm.telephone, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+             					{{ form_label(userAccountCreationForm.password.first)}}
+								{{ form_widget(userAccountCreationForm.password.first, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                    			{{ form_label(userAccountCreationForm.password.second)}}
+                     			{{ form_widget(userAccountCreationForm.password.second, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              				</div>
+								
+							<div class="form-group form-group-sm">
+							{#}
+								<div title="{% trans %}Catégorisez ce dossier{% endtrans %}" class="row tooltip-test" data-placement="top">
+												<form id="legalCaseCategoryForm" action="{{ path('app_admin_legal_case_categorize_action', {id: legalCase.id}) }}" method="post">
+												
+								#}
+    							<select id="user_role_choice" name="user_role_choice">
+									<option value="USER_ROLE_CHOICE">{% trans %}Selection un rôle{% endtrans %}</option>
+									{#{% for userRoleChoice in userRoleChoices %}#}
+									<option value="ROLE_CLIENT_SERVICE_CUSTOMER">{% trans %}Client{% endtrans %}</option>
+									<option value="ROLE_CLIENT_SERVICE_PROVIDER">{% trans %}Consultant{% endtrans %}</option>
+									<option value="ROLE_ADMIN">{% trans %}Administrateur{% endtrans %}</option>
+									{#{% endfor %}#}
+    							</select>
+								{#}
+													<input id="categorize" type="submit" name="categorize"></input>
+												</form>
+											</div>
+											{% set dropdownFormsArrayIndex = dropdownFormsArrayIndex+1 %}
+								#}
+								
+								{#
+                    				{{ form_widget(userAccountCreationForm.userCategory, { 'attr': {'id': 'userAccountCreationFormUserCategoryId', 'class': 'userAccountCreationFormUserCategoryClass', 'style': 'margin:4px' } })}}
+								#}
+              				</div>
+								
+							<div id="checkbox_position">
+							</div>
+								
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+						{{ form_end(userAccountCreationForm) }}
+					 
+					 </div>
+
+				</div>
+			
+	
+			</div> <!-- Beginning Of Main Col Div -->
+		</div>   <!-- End Of Main Page Row -->
+	</div> <!-- End of Main Page Container Div -->
+
+</main>
+
+	<script src="{{ asset('build/assets/custom/js/admin_user_account_creation_form_editor_checkbox.js') }}"></script>
+	
+	<script>
+	
+		$(document).ready(function()
+		{
+			//alert('hello');
+    		
+		});
+		
+		
+		
+		
+		/*	if($(".userAccountCreationFormUserCategoryClass :selected").text()=="ROLE_ADMIN")
+$('.userAccountCreationFormUserCategoryClass').change(function(e) 
+{			
+	if($(".userAccountCreationFormUserCategoryClass :selected").text()=="ROLE_ADMIN")
+	{
+		//$("#accountManagementCheckBox").remove();
+		newCheckBox =
+            '<div id="accountManagementCheckBox">' +
+			'<label>Editeur</label>' +
+            '<input type="checkbox" name="editor" value="editor" /></div>';
+            $('#checkbox_position').append(newCheckBox );
+	}else
+	{
+		$("#accountManagementCheckBox").remove(); 
+		//$('#checkbox_position').empty().remove(); 
+	}
+});
+		*/
+		
+	</script>
+	
+
+{% endblock %}

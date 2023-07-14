@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} Souscription {% endtrans %}{% endblock %}
+
+{% block body %}
+
+
+
+	<div class="container-fluid py-5">
+        <div class="container py-5">
+            <div class="bg-appointment rounded">
+                <div class="row h-100 align-items-center justify-content-center">
+                    <div class="col-lg-6 py-5">
+                        <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
+                            <h1 class="text-center text-white mb-4">{% trans %} Création de compte {% endtrans %}</h1>
+                            
+            				{{ form_start(registrationForm) }}
+						
+							<div class="form-group form-group-sm">
+                    			{{ form_label(registrationForm.firstName)}}
+                        		{{ form_widget(registrationForm.firstName, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                     			{{ form_label(registrationForm.lastName)}}
+								{{ form_widget(registrationForm.lastName, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+											
+							<div class="form-group form-group-sm">
+                     			{{ form_label(registrationForm.username)}}
+               					{{ form_widget(registrationForm.username, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+								{{ form_label(registrationForm.email)}}
+								{{ form_widget(registrationForm.email, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                       			{{ form_label(registrationForm.telephone)}}
+                      			{{ form_widget(registrationForm.telephone, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+
+							<div class="form-group form-group-sm">
+             					{{ form_label(registrationForm.password.first)}}
+								{{ form_widget(registrationForm.password.first, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                    			{{ form_label(registrationForm.password.second)}}
+                     			{{ form_widget(registrationForm.password.second, { 'attr': {'class': 'col-sm-10 col-lg-10 col-xs-10 form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+								{{ form_label(registrationForm.agreeTerms)}}
+								{{ form_widget(registrationForm.agreeTerms)}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                     			{{ form_row(registrationForm.save)}}
+              				</div>
+		
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+						
+							{{ form_end(registrationForm) }}
+						
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

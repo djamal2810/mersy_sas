@@ -1,0 +1,96 @@
+
+
+				<h1 class="logo"><a href="index.html">BizLand<span>.</span></a></h1>
+      			<!-- Uncomment below if you prefer to use an image logo -->
+      			<!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+      			<nav id="navbar" class="navbar">
+        			<ul>
+          				<li><a class="nav-link scrollto active" href="#hero">{% trans %}Accueil{% endtrans %}</a></li>
+						<li class="dropdown"><a href="#"><span>{% trans %}Services{% endtrans %}</span> <i class="bi bi-chevron-down"></i></a>
+            				<ul>
+              					<li><a href="#">{% trans %}Conseil juridique{% endtrans %}</a></li>
+								<li><a href="#">{% trans %}Audit{% endtrans %}</a></li>
+              					<li><a href="#">{% trans %}Expertise juridique{% endtrans %}</a></li>
+              					<li><a href="#">{% trans %}Rédaction des actes juridique{% endtrans %}</a></li>
+								<li><a href="#">{% trans %}Transactions immobilières{% endtrans %}</a></li>
+								<li><a href="#">{% trans %}Créations des entreprises{% endtrans %}</a></li>
+              					<li><a href="#">{% trans %}Secrétariat juridique{% endtrans %}</a></li>
+            				</ul>
+          				</li>
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') and not is_granted('ROLE_ADMIN') %}
+							<li class="dropdown"><a href="#"><span>{% trans %}Demandes de services{% endtrans %}</span> <i class="bi bi-chevron-down"></i></a>
+            					<ul>
+									{% if is_granted('ROLE_CLIENT_SERVICE_CUSTOMER') %}
+              							<li><a href="#">{% trans %}Soumission de demande{% endtrans %}</a></li>
+										<li><a href="#">{% trans %}Mes demandes{% endtrans %}</a></li>
+									{% elseif is_granted('ROLE_CLIENT_SERVICE_PROVIDER') %}
+              							<li><a href="#">{% trans %}Traitement des demandes{% endtrans %}</a></li>
+									{% endif %}
+            					</ul>
+          					</li>
+						{% endif %}
+          				<li><a class="nav-link scrollto" href="#about">{% trans %}Compétences{% endtrans %}</a></li>
+          				<li><a class="nav-link scrollto" href="#services">{% trans %}Honoraires{% endtrans %}</a></li>
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_ADMIN') %}
+							<li class="dropdown"><a href="#"><span>{% trans %}Outils Administratifs{% endtrans %}</span> <i class="bi bi-chevron-down"></i></a>
+            					<ul>
+              						<li class="dropdown"><a href="#"><span>{% trans %}Demandes de service{% endtrans %}</span> <i class="bi bi-chevron-right"></i></a>
+                						<ul>
+                  							<li><a href="#">{% trans %}Gestion de demandes{% endtrans %}</a></li>
+										</ul>
+              						</li>
+									<li class="dropdown"><a href="#"><span>{% trans %}Les utilisateurs{% endtrans %}</span> <i class="bi bi-chevron-right"></i></a>
+                						<ul>
+              								<li><a href="#">{% trans %}Création de comptes{% endtrans %}</a></li>
+											<li><a href="#">{% trans %}Gestion de comptes{% endtrans %}</a></li>
+										</ul>
+              						</li>
+									<li class="dropdown"><a href="#"><span>{% trans %}Les annonces{% endtrans %}</span> <i class="bi bi-chevron-right"></i></a>
+                						<ul>
+              								<li><a href="#">{% trans %}Nouvelle annonce{% endtrans %}</a></li>
+											<li><a href="#">{% trans %}Toutes les annonces{% endtrans %}</a></li>
+										</ul>
+              						</li>
+									<li class="dropdown"><a href="#"><span>{% trans %}Nos partenaires{% endtrans %}</span> <i class="bi bi-chevron-right"></i></a>
+                						<ul>
+              								<li><a href="#">{% trans %}Ajouter un partenaire{% endtrans %}</a></li>
+											<li><a href="#">{% trans %}Gestion de partenaires{% endtrans %}</a></li>
+										</ul>
+              						</li>
+									{% if is_granted('ROLE_EDITOR') %}
+										<li class="dropdown"><a href="#"><span>{% trans %}Les articles{% endtrans %}</span> <i class="bi bi-chevron-right"></i></a>
+            								<ul>
+              									<li><a href="#">{% trans %}Rédaction{% endtrans %}</a></li>
+												<li><a href="#">{% trans %}Révision{% endtrans %}</a></li>
+            								</ul>
+          								</li>
+									{% endif %}
+            					</ul>
+          					</li>
+		  				{% endif %}
+          				<li><a class="nav-link scrollto " href="#portfolio">{% trans %}Publications{% endtrans %}</a></li>
+          				<li><a class="nav-link scrollto" href="#team">{% trans %}Contact{% endtrans %}</a></li>
+					</ul>
+					
+					
+					
+					<ul class="nav navbar-nav navbar-right">
+						{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+							<li>
+								<a href="{{ path('app_logout') }}">
+									<span style="color:red;">{% trans %}Déconnexion{% endtrans %}</span> 
+								</a>
+							</li>
+						{% else %}
+							<li>
+								<a href="{{ path('app_login') }}">
+									<span style="color:blue;">{% trans %}Connexion{% endtrans %}</span> 
+								</a>
+							</li>
+						{% endif %}
+    				</ul>
+        			<i class="bi bi-list mobile-nav-toggle"></i>
+      			</nav><!-- .navbar -->
+				
+				

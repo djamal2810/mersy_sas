@@ -1,0 +1,13 @@
+{% macro table_row_prototype(form) %}
+	<tr id="legalCaseDocument" class="legalCaseDocument">
+		<td>
+			{{ form.preferredName.vars.value }} 
+		</td>
+		<td>
+			<strong class="btn btn-danger">Supprimer</strong>
+		</td>
+		<td>
+			{{ form_row(form) }}
+		</td>
+	</tr>
+{% endmacro %}

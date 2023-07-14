@@ -1,0 +1,236 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% trans %}Demandes{% endtrans %} {% endblock %}
+
+
+{% block body %}
+
+
+    <link rel="stylesheet" href="{{asset('build/assets/custom/css/legal_case_status_legende.css')}}">
+
+
+{% set nextPage = currentPage + 1 %}
+{% set prevPage = currentPage - 1 %}
+
+	<div class="container" data-aos="fade-up" style="position:relative; width:100%; margin-bottom:50px; margin-top:20px;"> <!-- Beginning of Main Page Container Div -->
+		<div class="row">  <!-- Beginning of Main Page Row -->
+			<div class="col-12 > <!-- Beginning Of Main Col Div -->
+	
+					<div class="card-body align-items-center d-flex justify-content-center">
+						<div class="section-title">
+          					<h4>{{ totalLegalCases }} {% trans %}Dossiers Créés{% endtrans %} </h4>
+          					<h5>{% trans %}Page:{% endtrans %} {{currentPage}}/{{pagesCount}}</h5>
+        				</div>
+					</div>
+				
+					{% include "include/_legal_case_status_legende.html.twig" with {'routeName': 'app_admin_legal_cases'} %}
+				
+					{% if totalLegalCases > 0 %} 
+				
+						{% set legalCaseCount = 1 %}
+						{% set dropdownFormsArrayIndex = 0 %}
+						
+      					<table cellspacing="0" width="100%" class="table table-bordered table-striped table-hover" style="padding:0">
+							<thead>
+    							<tr>
+            						<th>No.</th>
+									<th>{% trans %}Reference{% endtrans %}</th>
+									<th>{% trans %}Concerné{% endtrans %}</th>
+									<th>{% trans %}Date de création{% endtrans %}</th>
+									<th>{% trans %}Catégorie{% endtrans %}</th>
+									<th>{% trans %}Etat{% endtrans %}</th>
+									<th>{% trans %}Actions{% endtrans %}</th>
+    							</tr>
+							</thead>	
+							<tbody>
+								{% for legalCase in paginator %}
+									<tr>
+              							<td> {{ legalCaseCount }} </td>
+										<td> {{ legalCase.referenceNo }} </td>
+										<td> {{ legalCase.firstName }} {{ legalCase.lastName }} </td>
+										<td> {{ legalCase.creationDate | date('d-m-Y') }} </td>
+										<td> 
+											{% if legalCase.category is null %}
+											{% else %}
+												{{ legalCase.category.category }}
+											{% endif %}
+										</td>
+										{% if legalCase.status==status.submitted %}
+											<td style="background-color: #4b0082; color: #fff; text-align: center" >
+												<div title="{% trans %}Catégorisez ce dossier{% endtrans %}" class="row tooltip-test" data-placement="top">
+													<form class="legalCaseCategoryForm" action="{{ path('app_admin_legal_case_categorize_action', {id: legalCase.id}) }}" method="post">
+    													<select class="legal_case_category" name="legal_case_category">
+															<option value="Catégorie">{% trans %}Catégorie{% endtrans %}</option>
+															{% for lagalCaseCategory in legalCaseCetegories %}
+																<option value="{{lagalCaseCategory.category}}">{{lagalCaseCategory.category}}</option>
+															{% endfor %}
+    													</select>
+														<input id="categorize" type="submit" name="categorize"></input>
+													</form>
+												</div>
+												{% set dropdownFormsArrayIndex = dropdownFormsArrayIndex+1 %}
+											</td>
+										{% elseif legalCase.status==status.categorized %}
+											<td style="background-color: #964B00; color: #fff; text-align: center" >
+												<div title="{% trans %}Attribuez ce dossier à un consultant{% endtrans %}" class="row tooltip-test" data-placement="top">
+													{% if legalCase.assignedTo is not null %}
+														{% set previouslySelectedConsultant = legalCase.assignedTo.username ~ ' - ' ~ legalCase.assignedTo.userDetails.firstName  ~ ' ' ~ legalCase.assignedTo.userDetails.lastName %}
+													{% else %}
+														{% set previouslySelectedConsultant = 'Consultant' %}
+													{% endif %}
+													<form class="legalCaseAssignmentForm" action="{{ path('app_admin_legal_case_assignment_action', {id: legalCase.id}) }}" method="post">
+    													<select class="legal_case_agent" name="legal_case_agent">
+															<option value="Consultant">{% trans %}Consultant{% endtrans %}</option>
+																{% for agent in arrayOfAgents %}
+																	{% set agentValueInDropdownList = agent.username ~ ' - ' ~ agent.userDetails.firstName  ~ ' ' ~ agent.userDetails.lastName %}
+																	{% set selected = '' %}
+        															{% if previouslySelectedConsultant == agentValueInDropdownList %}
+           																{% set selected = 'selected' %}
+        															{% endif %}
+																	<option value="{{agentValueInDropdownList}}" {{ selected }}>
+																		{{agentValueInDropdownList}}
+																	</option>
+																{% endfor %}
+    													</select>
+														<input id="assignAgent" type="submit" name="assignAgent"></input>
+													</form>
+												</div>
+												{% set dropdownFormsArrayIndex = dropdownFormsArrayIndex+1 %}
+											</td>
+										{% elseif legalCase.status==status.inProgress %}
+											<td style="background-color: #00f; color: #fff; text-align: center" >
+												<div title="{% trans %} Ce dossier est en cours de traitement {% endtrans %}" class="tooltip-test" data-placement="top">
+													<i class="fa fa-folder-open fa-1x " style='color: white'></i>
+												</div>
+											</td>
+										{% elseif legalCase.status==status.incomplete %}
+											<td style="background-color: #ff6600; color: #fff; text-align: center">
+												<div title="{% trans %} Le dossier est incomplet {% endtrans %}" class="tooltip-test" data-placement="top">
+													<i class="fa fa-arrow-alt-circle-left fa-1x" style='color: white'></i>
+												</div>
+											</td >
+										{% elseif legalCase.status==status.assigned %}
+											<td style="background-color: #ffd700; color: #fff; text-align: center">
+												{% if legalCase.assignedTo is not null %}
+													{% set previouslySelectedConsultant = legalCase.assignedTo.username ~ ' - ' ~ legalCase.assignedTo.userDetails.firstName  ~ ' ' ~ legalCase.assignedTo.userDetails.lastName %}
+												{% else %}
+													{% set previouslySelectedConsultant = 'Consultant' %}
+												{% endif %}
+												<form class="legalCaseAssignmentForm" action="{{ path('app_admin_legal_case_assignment_action', {id: legalCase.id}) }}" method="post">
+    												<select class="legal_case_agent" name="legal_case_agent">
+														<option value="Consultant">{% trans %}Consultant{% endtrans %}</option>
+														{% for agent in arrayOfAgents %}
+															{% set agentValueInDropdownList = agent.username ~ ' - ' ~ agent.userDetails.firstName  ~ ' ' ~ agent.userDetails.lastName %}
+															{% set selected = '' %}
+        													{% if previouslySelectedConsultant == agentValueInDropdownList %}
+           														{% set selected = 'selected' %}
+        													{% endif %}
+															<option value="{{agentValueInDropdownList}}" {{ selected }}>
+																{{agentValueInDropdownList}}
+															</option>
+														{% endfor %}
+    												</select>
+													<input id="assignAgent" type="submit" name="assignAgent"></input>
+												</form>
+											</td>
+										{% elseif legalCase.status==status.rejected%}
+											<td style="background-color: #f00; color: #fff; text-align: center">
+												<div title="{% trans %}Le dossier est rejété par l'expert à qui il est attribué {% endtrans %}" class="tooltip-test" data-placement="top">
+												</div>
+												{% if legalCase.assignedTo is not null %}
+													{% set previouslySelectedConsultant = legalCase.assignedTo.username ~ ' - ' ~ legalCase.assignedTo.userDetails.firstName  ~ ' ' ~ legalCase.assignedTo.userDetails.lastName %}
+												{% else %}
+													{% set previouslySelectedConsultant = 'Consultant' %}
+												{% endif %}
+												<form class="legalCaseAssignmentForm" action="{{ path('app_admin_legal_case_assignment_action', {id: legalCase.id}) }}" method="post">
+    												<select class="legal_case_agent" name="legal_case_agent">
+														<option value="Consultant">{% trans %}Consultant{% endtrans %}</option>
+														{% for agent in arrayOfAgents %}
+															{% set agentValueInDropdownList = agent.username ~ ' - ' ~ agent.userDetails.firstName  ~ ' ' ~ agent.userDetails.lastName %}
+															{% set selected = '' %}
+        													{% if previouslySelectedConsultant == agentValueInDropdownList %}
+           														{% set selected = 'selected' %}
+        													{% endif %}
+															<option value="{{agentValueInDropdownList}}" {{ selected }}>
+																{{agentValueInDropdownList}}
+															</option>
+														{% endfor %}
+    												</select>
+													<input id="assignAgent" type="submit" name="assignAgent"></input>
+												</form>
+											</td >
+										{% elseif legalCase.status==status.completed %}
+											<td style="background-color: #008000; color: #fff; text-align: center">
+												<div title="{% trans %}Le dossier est complété {% endtrans %}" class="tooltip-test" data-placement="top">
+													<i class="fa fa-thumbs-up fa-1x" style='color: white'></i>
+												</div>
+											</td>
+										{% endif %}
+									
+										<td>
+											<div class="icon">
+												<a href="{{ path('app_admin_legal_case_revision', {id: legalCase.id}) }}" target="_blank" title="{% trans %}Revisez les détails du dossier{% endtrans %}" class="tooltip-test" data-placement="top"><i class="fa fa-pen fa-1x" style='color: primary'></i>
+												</a>
+												{{ " | " }}
+												<a href='{{ path('app_admin_legal_case_delete', {id: legalCase.id}) }}' title="{% trans %}Supprimez le dossier{% endtrans %}" class="tooltip-test" data-placement="top"><i class="fa fa-trash fa-1x" style='color: primary'></i>
+												</a>
+												{{ " | " }}
+												<a href="{{ path('app_admin_legal_case', {id: legalCase.id}) }}" target="_blank" title="{% trans %}Etutidez le dossier{% endtrans %}" class="tooltip-test" data-placement="top"><i class="fa fa-eye fa-1x" style='color: primary'></i>
+												</a>
+											</div>
+										</td>
+										{% set legalCaseCount = legalCaseCount+1 %}
+									</tr>
+  								{% endfor %}  
+							</tbody>
+						</table>
+					
+						
+						<div id="salutation">
+						</div>
+						
+						{#Page Navigation Section#}
+						<div>
+							<nav>
+  								<ul class="pagination">
+  									{% if currentPage == 1 %}
+    									<li class="page-item disabled">
+      										<a class="page-link" href="#" tabindex="-1">Precedent</a>
+   										</li>
+									{% else %}
+		    							<li class="page-item">
+      										<a class="page-link" href="{{ path('app_admin_legal_cases', {page: prevPage}) }}" tabindex="-1">Precedent</a>
+   										</li>
+									{% endif %}
+
+    								<li class="page-item active">
+      									<a class="page-link" href="#">{{ currentPage }}<span class="sr-only">(current)</span></a>
+    								</li>
+	
+	  								{% if currentPage == pagesCount %}
+    									<li class="page-item disabled">
+      										<a class="page-link" href="#" >Suivant</a>
+   										</li>
+									{% else %}
+		    							<li class="page-item">
+      										<a class="page-link" href="{{ path('app_admin_legal_cases', {page: nextPage}) }}" >Suivant</a>
+   										</li>
+									{% endif %}
+  								</ul>
+							</nav>
+						</div>
+					
+					{% endif %}
+
+			</div> <!-- Beginning Of Main Col Div -->
+		</div>   <!-- End Of Main Page Row -->
+	</div><!-- Beginning of Main Page Container Div -->	
+	
+			
+	{#<script id="navigationListItemsId" data-name="navigationLegalCaseId" src="{{ asset('build/navigationListItems.js') }}"></script>#}
+	<script id="navigationListItemsId" data-name="navigationLegalCaseId" src="{{ asset('build/assets/custom/js/legal_case_assignment_dropdown_button.js') }}"> </script>
+	<script id="navigationListItemsId" data-name="navigationLegalCaseId" src="{{ asset('build/assets/custom/js/legal_case_categorization_dropdown_button.js') }}"> </script>
+	
+
+
+{% endblock %}

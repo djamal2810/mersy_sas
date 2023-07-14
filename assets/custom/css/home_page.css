@@ -1,0 +1,104 @@
+.service-radial-menu-container 
+{
+	/*
+    	position: relative;
+        width: 24em;
+        height: 24em;
+        padding: 2.8em;
+        border-radius: 50%;
+        margin: 1.75em auto 0;
+*/
+}
+	
+.service-radial-menu-container a 
+{
+        position: absolute;
+        width: 4em; 
+	height: 4em;
+        margin: -2em;
+	/*background: #E6E7ED;*/
+	text-align: center;
+	vertical-align: middle;
+    	align-content: center;
+    	align-items: center;
+  	display: table-cell;
+	line-height: .4em;
+}
+	
+.service-radial-menu-container span
+{
+	font-size: 8pt;
+	color: #2a52be;
+}
+	
+.service-radial-menu-container img 
+{ 
+	max-height: 100%;
+   	max-width: 100%;
+}
+	
+	.service-radial-menu-container i 
+	{
+   		max-height: 100%;
+   		max-width: 100%;
+   	}
+	
+	.service-radial-menu-centered-element 
+	{
+  		margin: 0;
+  		position: absolute;
+  		top: 50%;
+  		left: 50%;
+  		transform: translate(-50%, -50%);
+	}
+	
+	.circular-menu-item-grow { transition: all .2s ease-in-out; }
+	.circular-menu-item-grow:hover { transform: scale(1.5); }
+	
+	.card-poster-container
+	{
+		max-width: 100%;
+		width: 100%;
+		display: block;
+		backgroun-color: grey;
+	}
+	
+	.home-page-home-title
+	{
+		text-align: center; 
+		margin-top: 20px; 
+		margin-bottom: 20px;
+	}
+	
+	@media screen and (min-width: 768px) 
+	{
+  		.service-radial-menu-container span 
+		{
+			font-size: 10pt;
+			color: #2a52be;
+			margin-top: 10px;
+  		}
+		
+		.service-radial-menu-container a 
+		{
+        	position: absolute;
+        	width: 4em; 
+			height: 4em;
+			margin: -2em;
+			text-align: center;
+			vertical-align: middle;
+    		align-content: center;
+    		align-items: center;
+  			display: table-cell;
+			line-height: .5em;
+    	}
+	}
+	
+	@media screen and (max-width: 768px) 
+	{
+  		.service-radial-menu-container span 
+		{
+			font-size: 8pt;
+			color: #2a52be;
+  		}
+	}

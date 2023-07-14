@@ -1,0 +1,354 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {% trans %} Demande {% endtrans %} {{legalCase.referenceNo}} {% endblock %}
+
+
+{% block body %}
+
+	{% block stylesheets %}
+    	{{ parent() }}
+		{#<link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />#}
+		<style>
+    		.group-band-container{
+				display: block;
+				border: 2px solid white;
+            	margin: 2px;
+				width: 100%;
+				font-size: 30px;
+            	color: white;
+				font-weight: bold;
+				background-color: blue;
+				text-align: center;
+			}
+			
+			.group-band-container:hover{
+				cursor:pointer;
+			}
+			
+			
+			.group-nested-info-container{
+				display: none;
+				border: 2px solid blue;
+            	margin: 2px;
+				font-size: 15px;
+            	color:black;
+				font-weight: normal;
+				background-color: white;
+			}
+			
+			.group-nested-info-hidden-button{
+				border: 2px solid blue;
+            	margin: 10px;
+				width: 10%;
+				font-size: 15px;
+            	color:white;
+				font-weight: bold;
+				background-color: blue;
+				border-radius: 25px;
+			}
+		</style>
+	{% endblock %}
+
+
+<div class="container" data-aos="fade-up" style="position:relative; width:100%; margin-bottom:50px; margin-top:20px;"> <!-- Beginning of Main Page Container Div -->
+		<div class="row">  <!-- Beginning of Main Page Row -->
+			<div class="col-lg-12 col-sm-9 col-xs-6" style="overflow-x: auto;"> <!-- Beginning Of Main Col Div -->
+				<div class="card"> <!-- Beginning of card Div-->
+					<div class="card-header main-page-title" >
+    					{% trans %} Etude de demande {% endtrans %}
+  					</div>
+	
+					<div class="card-body align-items-center d-flex justify-content-center">
+						<div class="section-title">
+          					<h4> {% trans %} Demande {% endtrans %} {{legalCase.referenceNo}} </h4>
+        				</div>
+					</div>
+				
+				
+				<div class="group-band-container client-service-customer">
+					Concerné
+					<div class="group-nested-info-container client-service-customer">
+						<div class="strip-courses">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="block-align-horizontal" style="font-weight: bold;">
+										Nom
+									</div>
+									<div>
+										{{ legalCase.firstName }}
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="block-align-horizontal" style="font-weight: bold;">
+										Prénom
+									</div>
+									<div class="block-align-horizontal">
+										{{ legalCase.lastName }}
+									</div>
+								</div>
+							</div>
+						</div><!-- end strip-->
+					
+					<div class="strip-courses">
+						<div class="title-course">
+							<h3>Contact</h3>
+						</div>
+						<div class="description">	
+	
+    						<div class="row">
+					 			<div class="col-md-4">
+            						<div style="font-weight: bold;">
+                						Ville
+            						</div>
+            						<div>
+                						{{ legalCase.contact.town }}
+            						</div>
+        						</div>
+						
+        						<div class="col-md-4">
+            						<div class="block-align-horizontal" style="font-weight: bold;">
+                						Quartier
+            						</div>
+            						<div id="quartier">
+                						{{ legalCase.contact.neighborhood }}
+            						</div>
+        						</div>
+
+        						<div class="col-md-4">
+            						<div class="block-align-horizontal" style="font-weight: bold;">
+                						Rue
+            						</div>
+            						<div  class="block-align-horizontal">
+            						</div>
+									<div>
+                						{{ legalCase.contact.street }}
+            						</div>
+        						</div>
+    						</div>
+    						<div class="row">
+        						<div class="col-md-4">
+            						<div class="block-align-horizontal" style="font-weight: bold;">
+                						Boîte Postale
+            						</div>
+            						<div  class="block-align-horizontal">
+                						{{ legalCase.contact.postalCode }}
+            						</div>
+        						</div>
+        						<div class="col-md-4">
+            						<div class="block-align-horizontal" style="font-weight: bold;">
+                						Téléphone
+            						</div>
+            						<div id="telephone">
+                						{{ legalCase.contact.telephone }}
+            						</div>
+        						</div>
+        						<div class="col-md-4">
+            						<div class="block-align-horizontal" style="font-weight: bold;">
+                						Email
+            						</div>
+            						<div id="email">
+                						{{ legalCase.contact.email }}
+            						</div>
+        						</div>
+    						</div>
+						</div>
+					</div><!-- end strip-->
+
+					</div>
+				</div>
+
+				
+				<div class="group-band-container current-legal-case-details">
+					Description du dossier
+					<div class="group-nested-info-container current-legal-case-details">
+						{% autoescape false %}
+           					{{ legalCase.casePresentation }}
+						{% endautoescape %}
+					</div>
+				</div>
+
+				
+				<div class="group-band-container current-legel-case-documents">
+					Documents
+					<div class="group-nested-info-container current-legel-case-documents">
+						<div>
+							{% if legalCase.legalCaseDocuments |length > 0 %}
+								{% set i = 1 %}
+								<table cellspacing="0" width="100%"  class="table table-bordered table-striped table-hover">
+									<thead>
+    									<tr>
+            								<th>No.</th>
+											<th>{% trans %}Document{% endtrans %}</th>
+											<th>{% trans %}Télécharger{% endtrans %}</th>
+											<th>{% trans %}Lire{% endtrans %}</th>
+    									</tr>
+									</thead>	
+									<tbody>
+										{% for legalCaseDocument in legalCase.legalCaseDocuments %}
+											<tr>
+												<td>
+													{{i}}
+												</td>
+												<td>
+													{{legalCaseDocument.preferredName}}
+												</td>
+												<td>
+													<div class="icon">
+														<a href="{{ path('app_agent_download_legal_case_document', {id: legalCaseDocument.id}) }} title="{% trans %}Téléchargez le document{% endtrans %}" class="tooltip-test" data-placement="top">
+															<i class="fa fa-download fa-1x" style='color: blue'></i>
+														</a>
+													</div>
+												</td>
+												<td>
+													<div class="icon">
+														<a href="{{ path('app_agent_display_legal_case_document', {id: legalCaseDocument.id}) }} title="{% trans %}Lire le document{% endtrans %}" class="tooltip-test" data-placement="top">
+															<i class="fa fa-book-reader fa-1x" style='color: blue'></i>
+														</a>
+													</div>
+												</td>
+											<tr>
+ 											{% set i = i + 1 %}
+										{% endfor %}
+									</tbody>
+								</table>
+							{% endif %}
+
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="group-band-container current-legel-case-expectations">
+					Les attentes du client
+					<div class="group-nested-info-container current-legel-case-expectations">
+						{% autoescape false %}
+							{{ legalCase.expectations }}
+						{% endautoescape %}
+					</div>
+				</div>
+				
+				<div id="legalCaseAgentActionButtons" class="legalCaseAgentActionButtons"> <!-- Agent Action Buttons Sections -->
+					{{ form_start(actionForm) }}
+					<div class="form-group form-group-sm">
+             			{{ form_widget(actionForm.accept)}}
+						{{ form_widget(actionForm.reject)}}
+						{{ form_widget(actionForm.incomplete)}}
+            		</div>
+					{{ form_end(actionForm) }}
+				</div> <!-- End Of Agent Action Buttons Sections -->
+				
+				<div id="legalCaseAgentRejection" class="legalCaseAgentRejection" style="display:none" >
+					{{ form_start(rejectionForm) }}
+					<div class="form-group form-group-sm">
+						<div>
+             				{{ form_label(rejectionForm.motive)}}
+						</div>
+						<div>
+             			{{ form_widget(rejectionForm.motive)}}
+						</div>
+						<div id="rejectionFormButtons" class="rejectionFormButtons">
+							{{ form_widget(rejectionForm.send)}}
+							{{ form_widget(rejectionForm.cancel)}}
+						</div>
+            		</div>
+					{{ form_end(rejectionForm) }}
+				</div>
+				
+				<div id="legalCaseAgentIncomplete" class="legalCaseAgentIncomplete" style="display:none"> <!-- Agent Incomplete Buttons Sections -->
+					{{ form_start(incompleteForm) }}
+					<div class="form-group form-group-sm">
+						<div>
+             				{{ form_label(incompleteForm.message)}}
+						</div>
+						<div>
+             			{{ form_widget(incompleteForm.message)}}
+						</div>
+						<div id="incompleteFormButtons" class="incompleteFormButtons">
+							{{ form_widget(incompleteForm.send)}}
+							{{ form_widget(incompleteForm.cancel)}}
+						</div>
+            		</div>
+					{{ form_end(incompleteForm) }}
+				</div> <!-- End Of Agent Incomplete Buttons Sections -->
+
+
+
+
+				</div> <!-- End of card Div -->
+			</div> <!-- Beginning Of Main Col Div -->
+		</div>   <!-- End Of Main Page Row -->
+	</div><!-- Beginning of Main Page Container Div -->	
+	
+	
+	
+	{#<script id="navigationListItemsId" data-name="navigationLegalCaseId" src="{{ asset('build/navigationListItems.js') }}"></script>#}
+
+	
+	<script>
+		$(document).ready(function(){
+			
+			$('.group-band-container.client-service-customer').click(function(e) 
+			{
+				e.preventDefault();
+      			$(this).find(".group-nested-info-container").toggle("slide");
+    		});
+			
+			$('.group-band-container.current-legal-case-details').click(function(e) 
+			{
+				e.preventDefault();
+      			$(this).find(".group-nested-info-container").toggle("slide");
+    		});
+			
+			$('.group-band-container.current-legel-case-expectations').click(function(e) 
+			{
+				e.preventDefault();
+      			$(this).find(".group-nested-info-container").toggle("slide");
+    		});
+			
+			$('.group-band-container.current-legel-case-documents').click(function(e) 
+			{
+				//e.preventDefault();
+				$(this).css('cursor','default');
+				$(this).find(".group-nested-info-container").show();
+    		});
+			
+			//Rejection Button
+			$('#legalCaseAgentActionButtons').find(':submit').eq(1).click(function(e) 
+			{
+				e.preventDefault();
+				
+				$('#legalCaseAgentActionButtons').hide();
+				$("#legalCaseAgentRejection").show();
+		
+				//Handle the event the canceling the motive for rejection
+				$("#rejectionFormButtons").find(':submit').eq(1).click(function(e)
+				{
+					e.preventDefault();
+					$("#legalCaseAgentRejection").hide();
+					$('#legalCaseAgentActionButtons').show();
+				});
+		
+    		});
+			
+			//Incomplete Button
+			$('#legalCaseAgentActionButtons').find(':submit').eq(2).click(function(e) 
+			{
+				e.preventDefault();
+				
+				$('#legalCaseAgentActionButtons').hide();
+				$("#legalCaseAgentIncomplete").show();
+				
+				//Handle the event the canceling the comments
+				$("#incompleteFormButtons").find(':submit').eq(1).click(function(e)
+				{
+					e.preventDefault();
+					$("#legalCaseAgentIncomplete").hide();
+					$('#legalCaseAgentActionButtons').show();
+				});
+				
+    		});			
+			
+		});
+	</script>
+
+{% endblock %}

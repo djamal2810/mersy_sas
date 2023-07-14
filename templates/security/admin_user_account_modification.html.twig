@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %} Modification de compte {% endtrans %}{% endblock %}
+
+
+
+{% block body %}
+
+<main>
+	<div class="container" style="position:relative; width:100%; margin-bottom:50px; margin-top:20px;"> <!-- Beginning of Main Page Container Div -->
+		<div class="row">  <!-- Beginning of Main Page Row -->
+			<div class="col col-lg-9 col-sm-9 col-xs-9" style="overflow-x: auto;"> <!-- Beginning Of Main Col Div -->
+				
+				<div class="card" style=""> <!-- Beginning of right frame card-->
+
+      				{#<div class="card-header" style="color:white; background-color:blue; font-weight:bold; text-align:center">
+    					{% trans %} Modification de compte {% endtrans %} '{{username}}'
+  					</div>#}
+					 
+					 <div div class="card-body align-items-center d-flex justify-content-center">
+						
+					 	{{ form_start(userAccountCreationForm, {'attr': {'id': 'adminUserAccountCreationFormId'}}) }}
+					
+							<div class="form-group form-group-sm">
+                   				{{ form_label(userAccountCreationForm.username)}}
+                    			{{ form_widget(userAccountCreationForm.username, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+	
+							<div class="form-group form-group-sm">
+                    			{{ form_label(userAccountCreationForm.firstName)}}
+                   				{{ form_widget(userAccountCreationForm.firstName, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                    			{{ form_label(userAccountCreationForm.lastName)}}
+                     			{{ form_widget(userAccountCreationForm.lastName, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+								{{ form_label(userAccountCreationForm.email)}}
+								{{ form_widget(userAccountCreationForm.email, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+								
+							<div class="form-group form-group-sm">
+								{{ form_label(userAccountCreationForm.telephone)}}
+								{{ form_widget(userAccountCreationForm.telephone, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+             					{{ form_label(userAccountCreationForm.password.first)}}
+								{{ form_widget(userAccountCreationForm.password.first, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+						
+							<div class="form-group form-group-sm">
+                    			{{ form_label(userAccountCreationForm.password.second)}}
+                     			{{ form_widget(userAccountCreationForm.password.second, { 'attr': {'class': 'form-control'} })}}
+              				</div>
+								
+							<div class="form-group form-group-sm">
+
+    							<select id="user_role_choice" name="user_role_choice">
+									<option value="USER_ROLE_CHOICE">{% trans %}Selection un rôle{% endtrans %}</option>
+									{% set selected = '' %}
+        							{% if registeredRole == "ROLE_CLIENT_SERVICE_CUSTOMER" %}
+           								{% set selected = 'selected' %}
+									{% endif %}
+									<option value="ROLE_CLIENT_SERVICE_CUSTOMER" {{ selected }}>{% trans %}Client{% endtrans %}</option>
+									{% set selected = '' %}
+									{% if registeredRole == "ROLE_CLIENT_SERVICE_PROVIDER" %}
+           								{% set selected = 'selected' %}
+									{% endif %}
+									<option value="ROLE_CLIENT_SERVICE_PROVIDER" {{ selected }}>{% trans %}Consultant{% endtrans %}</option>
+									{% set selected = '' %}
+									{% if registeredRole == "ROLE_ADMIN" %}
+           								{% set selected = 'selected' %}
+									{% endif %}
+									<option value="ROLE_ADMIN" {{ selected }}>{% trans %}Administrateur{% endtrans %}</option>
+    							</select>
+              				</div>
+								
+							<div id="checkbox_position">
+							</div>
+								
+							<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+						{{ form_end(userAccountCreationForm) }}
+					 
+					 </div>
+
+				</div>
+			
+	
+			</div> <!-- Beginning Of Main Col Div -->
+		</div>   <!-- End Of Main Page Row -->
+	</div> <!-- End of Main Page Container Div -->
+
+</main>
+
+
+	<script type="text/javascript" src="{{ asset('build/assets/custom/js/admin_user_account_modification_editor_checkbox.js')}}" data-isEditor={{isEditor}} ></script>
+	
+	<script>
+	
+
+	</script>
+	
+
+{% endblock %}

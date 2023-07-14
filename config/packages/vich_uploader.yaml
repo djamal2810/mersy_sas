@@ -1,0 +1,20 @@
+vich_uploader:
+    db_driver: orm
+    metadata:
+        type: attribute
+
+    mappings:
+        customer_document_file:
+            uri_prefix: /uploads/customer_uploads
+            upload_destination: '%kernel.project_dir%/public/uploads/customer_uploads'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true
+        admin_document_file:
+            uri_prefix: /uploads/admin_uploads
+            upload_destination: '%kernel.project_dir%/public/uploads/admin_uploads'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load: false
+            delete_on_update: true
+            delete_on_remove: true

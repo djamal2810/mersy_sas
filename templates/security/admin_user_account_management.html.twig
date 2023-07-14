@@ -1,0 +1,204 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion de comptes utilisateurs{% endblock %}
+
+
+
+
+{% block body %}
+
+
+{% set nextPage = currentPage + 1 %}
+{% set prevPage = currentPage - 1 %}
+
+
+<main id="main">
+		<!-- ======= Registration Section ======= -->
+    	<section id="contact" class="contact">
+      		<div class="container" data-aos="fade-up">
+			
+        	
+				<nav id="accountManagementNavLinksId">
+    				<ul class="nav nav-tabs">
+        				<li class="nav-item">
+            				<a class="nav-link" data-target="#userAccountCreationTab" id="userAccountCreationAnchorId" data-toggle="tab" onclick="changeTabOnClick('accountManagementNavLinksId', 'accountManagementNavTabsId', 'userAccountCreationAnchorId', 'userAccountCreationTab');">Création</a>
+        				</li>
+        				<li class="nav-item">
+            				<a class="nav-link active" data-target="#userAccountModificationTab" id="userAccountModificationAnchorId" data-toggle="tab" onclick="changeTabOnClick('accountManagementNavLinksId', 'accountManagementNavTabsId', 'userAccountModificationAnchorId', 'userAccountModificationTab')">Gestions</a>
+        				</li>
+    				</ul>
+				</nav>	
+					
+			
+					
+				<div id="accountManagementNavTabsId" class="tab-content">
+					{#ADD USER TAB#}
+    				<div id="userAccountCreationTab" class="tab-pane fade">
+      			
+						<div class="section-title">
+          					<h2>Gestion de comptes</h2>
+          					<h3><span>Creation de compte</span></h3>
+        				</div>
+					 
+					 	<div div class="card-body align-items-center d-flex justify-content-center">
+						
+					 		{{ form_start(userAccountCreationForm, {'attr': {'id': 'userAccountCreationFormId'}}) }}
+					
+								<div class="form-group form-group-sm">
+                   					{{ form_label(userAccountCreationForm.username)}}
+                    				{{ form_widget(userAccountCreationForm.username, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+	
+								<div class="form-group form-group-sm">
+                    				{{ form_label(userAccountCreationForm.firstName)}}
+                   					{{ form_widget(userAccountCreationForm.firstName, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+                    				{{ form_label(userAccountCreationForm.lastName)}}
+                     				{{ form_widget(userAccountCreationForm.lastName, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+									{{ form_label(userAccountCreationForm.email)}}
+									{{ form_widget(userAccountCreationForm.email, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+								
+								<div class="form-group form-group-sm">
+									{{ form_label(userAccountCreationForm.telephone)}}
+									{{ form_widget(userAccountCreationForm.telephone, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+             						{{ form_label(userAccountCreationForm.password.first)}}
+									{{ form_widget(userAccountCreationForm.password.first, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+						
+								<div class="form-group form-group-sm">
+                    				{{ form_label(userAccountCreationForm.password.second)}}
+                     				{{ form_widget(userAccountCreationForm.password.second, { 'attr': {'class': 'col-sm-10 form-control'} })}}
+              					</div>
+								
+								<div class="form-group form-group-sm">
+									{#{{ form_label(userAccountCreationForm.userCategory)}}#}
+                    				{{ form_widget(userAccountCreationForm.userCategory, { 'attr': {'id': 'userAccountCreationFormUserCategoryId', 'class': 'userAccountCreationFormUserCategoryClass', 'style': 'margin:4px' } })}}
+              					</div>
+								
+								<div id="checkbox_position">
+								</div>
+								
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+							{{ form_end(userAccountCreationForm) }}
+					 
+    					</div>
+					</div>
+					
+					
+					{#MODIFY USER TAB#}
+    				<div id="userAccountModificationTab" class="tab-pane active">
+						<div class="section-title">
+          					<h2>{{ totalUsers }} Comptes Créés </h2>
+          					<h3>Page {{currentPage}}/{{pagesCount}}</h3>
+          					{# <p>Creez votre compte</p> #}
+        				</div>
+				
+						{% set userCount = 1 %}
+      					<table cellspacing="0" width="100%"  class="table table-bordered table-striped table-hover">
+						<thead>
+    						<tr>
+            					<th>No.</th>
+								<th>{% trans %}Nom d'utilisateur{% endtrans %}</th>
+								<th>{% trans %}Nom et Prenom{% endtrans %}</th>
+								<th>{% trans %}Roles{% endtrans %}</th>
+								<th>{% trans %}Actions{% endtrans %}</th>
+    						</tr>
+						</thead>	
+						<tbody>
+							{% for user in paginator %}
+								<tr>
+              						<td> {{ userCount }} </td>
+									<td> {{ user.username }} </td>
+									<td> {{ user.userDetails.firstName }} {{ user.userDetails.lastName }} </td>
+									{% set userRole = '' %}
+									{% for role in user.roles %}
+										{% set userR = '' %}
+										{% if role == 'ROLE_ADMIN' %}
+											{% set userR = 'ADMIN, ' %}
+										{% elseif role == 'ROLE_CLIENT_SERVICE_CUSTOMER' %}
+											{% set userR = 'CLIENT, ' %}
+										{% elseif role == 'ROLE_CLIENT_SERVICE_PROVIDER' %}
+											{% set userR = 'AGENT, ' %}
+										{% elseif role == 'ROLE_EDITOR' %}
+											{% set userR = 'EDITEUR, ' %}
+										{% elseif role == 'ROLE_SUPER_ADMIN' %}
+											{% set userR = 'SUPER_ADMIN, ' %}
+										{% endif %}
+										{% set userRole = userRole ~ ' ' ~ userR %}
+									{% endfor %}
+									<td> {{ userRole }} </td>
+									<td>
+										<div class="icon">
+											<a href="{{ path('app_user_account_management_modify', {id: user.id}) }}" target="_blank" title="{% trans %}Modifiez les détails et authorizations d'utilisateur{% endtrans %}" class="tooltip-test" data-placement="top"><i class="fa fa-pen fa-1x" style='color: blue'></i>
+											</a>
+											{{ " | " }}
+											<a href='{{ path('app_user_account_management_delete', {id: user.id}) }}' title="{% trans %}Supprimez le compte d'utilisateur{% endtrans %}" class="tooltip-test" data-placement="top"><i class="fa fa-trash fa-1x" style='color: blue'></i>
+											</a>
+										</div>
+									</td>
+									{% set userCount = userCount+1 %}
+								</tr>
+  							{% endfor %}  
+						</tbody>
+						</table>
+					
+						
+						
+						
+						{#Modify User Account Page Navigation Section#}
+						<div>
+							<nav>
+  								<ul class="pagination">
+  									{% if currentPage == 1 %}
+    									<li class="page-item disabled">
+      										<a class="page-link" href="#" tabindex="-1">Precedent</a>
+   										</li>
+									{% else %}
+		    							<li class="page-item">
+      										<a class="page-link" href="{{ path('app_user_account_management', {page: prevPage}) }}" tabindex="-1">Precedent</a>
+   										</li>
+									{% endif %}
+
+    								<li class="page-item active">
+      									<a class="page-link" href="#">{{ currentPage }}<span class="sr-only">(current)</span></a>
+    								</li>
+	
+	  								{% if currentPage == pagesCount %}
+    									<li class="page-item disabled">
+      										<a class="page-link" href="#" >Suivant</a>
+   										</li>
+									{% else %}
+		    							<li class="page-item">
+      										<a class="page-link" href="{{ path('app_user_account_management', {page: nextPage}) }}" >Suivant</a>
+   										</li>
+									{% endif %}
+  								</ul>
+							</nav>
+						</div>
+    				</div>
+				</div>
+					 		
+    	</section><!-- End Contact Section -->
+  	</main><!-- End #main -->
+	
+	
+
+		<script id="navigationListItemsId" data-name="userConnectionId" src="{{ asset('build/custom/js/navigation_list_items.js') }}"></script>
+		{#<script id="vertNavigationListItemsId" data-name="vertNavigationModifyArticleId" src="{{ asset('build/vertNavigationListItems.js') }}"></script>#}
+		<script type="text/javascript" src="{{ asset('build/custom/js/modify_article_navigation_tabs.js') }}"></script> 
+		{# <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> #}
+		<script type="text/javascript" src="{{ asset('build/jquery/jquery.min.js') }}"></script>
+		<script src="{{ asset('build/custom/js/registration_form_editor_checkbox.js') }}"></script>
+	
+
+{% endblock %}

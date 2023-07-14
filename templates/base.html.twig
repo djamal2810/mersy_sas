@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta content="" name="description">
+  		<meta content="" name="keywords">
+		
+        <title>{% block title %}MERSY-SAS{% endblock %}</title>
+
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+			<link type="text/css" rel="stylesheet" href="{{ asset('build/assets/bootstrap/dist/css/bootstrap.min.css') }}" />
+			<link type="text/css" rel="stylesheet" href="{{ asset('build/assets/fontawesome-free-5.15.4-web/css/all.min.css') }}" />
+			<link type="text/css" rel="stylesheet" href="{{ asset('build/assets/fontawesome-free-5.15.4-web/css/regular.min.css') }}" />
+			<link type="text/css" rel="stylesheet" href="{{ asset('build/assets/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css') }}" />
+			<!-- Flow CSS-->
+			<link type="text/css" rel="stylesheet" href="{{ asset('bundles/craueformflow/css/buttons.css') }}" />
+			
+			{#
+    			<!-- Favicon -->
+    			<link href="img/favicon.ico" rel="icon">
+    			<!-- Google Web Fonts -->
+    			<link rel="preconnect" href="https://fonts.gstatic.com">
+    			<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
+    			<!-- Font Awesome -->
+    			<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    			<!-- Libraries Stylesheet -->
+    			<link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    			<link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    			<!-- Customized Bootstrap Stylesheet -->
+    			<link href="css/style.css" rel="stylesheet">
+			#}
+			
+			<!-- Favicon -->
+    		<link href="img/favicon.ico" rel="icon">
+    		<!-- Google Web Fonts -->
+    		<link rel="preconnect" href="https://fonts.gstatic.com">
+    		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@300;500;700&display=swap" rel="stylesheet"> 
+    		<!-- Font Awesome -->
+    		<!-- Libraries Stylesheet -->
+    		<link href="{{ asset('build/assets/custom-template/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+    		<!-- Customized Bootstrap Stylesheet -->
+    		<link href="{{ asset('build/assets/custom-template/css/style.css') }}" rel="stylesheet">
+			
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+
+			<script src="{{ asset('build/assets/jquery/dist/jquery.min.js') }}"></script>
+			<script src="{{ asset('build/assets/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+			{#<script src="{{ asset('build/assets/moment/min/moment.min.js') }}"></script>
+			<script src="{{ asset('build/assets/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+			<script src="{{ asset('build/assets/popper.js/dist/umd/popper.min.js') }}"></script>
+			<script src="{{ asset('build/assets/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+			<script src="{{ asset('build/assets/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>#}
+			<script src="{{ asset('build/assets/fontawesome-free-5.15.4-web/js/all.min.js') }}"></script>
+			<script src="{{ asset('build/assets/fontawesome-free-5.15.4-web/js/regular.min.js') }}"></script>
+			
+			{#
+			<!-- JavaScript Libraries -->
+    		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    		<script src="lib/easing/easing.min.js"></script>
+    		<script src="lib/waypoints/waypoints.min.js"></script>
+    		<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    		<script src="lib/tempusdominus/js/moment.min.js"></script>
+    		<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    		<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+    		<!-- Contact Javascript File -->
+    		<script src="mail/jqBootstrapValidation.min.js"></script>
+    		<script src="mail/contact.js"></script>
+    		<!-- Template Javascript -->
+    		<script src="js/main.js"></script>
+			#}
+
+        {% endblock %}
+    </head>
+	
+    <body>
+	
+		<!-- Header Start -->
+    	<div class="container-fluid">
+        	<div class="row">
+            	<div class="col-lg-3 bg-secondary d-none d-lg-block">
+                	<a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+						<h1 class="m-0 display-4 text-primary text-uppercase">MERSY-SAS</h1>
+                	</a>
+            	</div>
+            	<div class="col-lg-9">
+                	<div class="row bg-white border-bottom d-none d-lg-flex">
+                    	<div class="col-lg-7 text-left">
+                        	<div class="h-100 d-inline-flex align-items-center py-2 px-3">
+								<i class="fa fa-envelope text-primary mr-2"></i>
+                            	<small>contact@mersy-td.com</small>
+                        	</div>
+                        	<div class="h-100 d-inline-flex align-items-center py-2 px-2">
+                            	<i class="fa fa-phone-alt text-primary mr-2"></i>
+                            	<small>+235 60990037 / 97038256</small>
+                        	</div>
+                    	</div>
+                    	<div class="col-lg-5 text-right">
+                        	<div class="d-inline-flex align-items-center p-2">
+                            	<a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="https://www.facebook.com/profile.php?id=100088792884752">
+                                	<i class="fab fa-facebook-f"></i>
+                            	</a>
+                            	<a class="btn btn-sm btn-outline-primary btn-sm-square mr-2" href="https://www.linkedin.com/company/mersy-sas/">
+                                	<i class="fab fa-linkedin-in"></i>
+								</a>
+                        	</div>
+                    	</div>
+                	</div>
+
+                	<nav class="navbar navbar-expand-lg bg-white navbar-light p-0">
+                    	<a href="index.html" class="navbar-brand d-block d-lg-none">
+                        	<h1 class="m-0 display-4 text-primary text-uppercase">MERSY-SAS</h1>
+                    	</a>
+                    	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        	<span class="navbar-toggler-icon"></span>
+                    	</button>
+                    	<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        	<div class="navbar-nav mr-auto py-0">
+                            	<a href="index.html" class="nav-item nav-link active">Accueil</a>
+                            	<div class="nav-item dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Juridique</a>
+                                	<div class="dropdown-menu rounded-0 m-0">
+                                    	<a href="#" class="dropdown-item">conseil Juridique</a>
+                                    	<a href="#" class="dropdown-item">secretariat Juridique</a>
+                                    	<a href="#" class="dropdown-item">Audit Juridique</a>
+                                    	<a href="#" class="dropdown-item">Creation d'entreprise</a>
+                                	</div>
+                            	</div>
+                            	<div class="nav-item dropdown">
+                                	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Financier</a>
+                                	<div class="dropdown-menu rounded-0 m-0">
+                                    	<a href="#" class="dropdown-item">AUDIT</a>
+                                    	<a href="#" class="dropdown-item">conseil</a>
+										<a href="#" class="dropdown-item">Formation</a>
+                                	</div>
+                            	</div>
+                            	<div class="nav-item dropdown">
+                                	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Immobilier</a>
+                                	<div class="dropdown-menu rounded-0 m-0">
+                                    	<a href="#" class="dropdown-item">titre foncier</a>
+                                    	<a href="#" class="dropdown-item">suivi de dossiers</a>
+                                    	<a href="#" class="dropdown-item">Menu Item 3</a>
+									</div>
+                            	</div>
+                            	<a href="team.html" class="nav-item nav-link">RH & PAIE</a>
+                            	<div class="nav-item dropdown">
+                                	<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{% trans %}Autres{% endtrans %}</a>
+                                	<div class="dropdown-menu rounded-0 m-0">
+                                    	<a href="#" class="dropdown-item">Conseil en énergie renouvelable</a>
+                                    	<a href="#" class="dropdown-item">Opérations Agricoles </a>
+										{% if is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_CLIENT_SERVICE_CUSTOMER') %}
+											<div class="dropdown-divider"></div>
+                                    		<a href="{{ path('app_legal_case') }}" class="dropdown-item">{% trans %}Soumission de demande{% endtrans %}</a>
+											<a href="{{ path('app_customer_legal_cases') }}" class="dropdown-item">{% trans %}Mes demandes{% endtrans %}</a>
+										{% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_CLIENT_SERVICE_PROVIDER') %}
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item">{% trans %}Traitement des demandes{% endtrans %}</a>
+										{% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_ADMIN') %}
+											<div class="dropdown-divider"></div>
+											<a href="{{ path('app_admin_legal_cases') }}" class="dropdown-item">{% trans %}Gestion de demandes{% endtrans %}</a>
+											<div class="dropdown-divider"></div>
+											<a href="#" class="dropdown-item">{% trans %}Création de comptes{% endtrans %}</a>
+											<a href="{{ path('app_admin_user_account_management') }}" class="dropdown-item">{% trans %}Gestion de comptes{% endtrans %}</a>
+										{% endif %}
+                                	</div>
+                            	</div>
+                            	<a href="contact.html" class="nav-item nav-link">Contact</a>
+                        	</div>
+							{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+								<a href="{{ path('app_logout') }}" class="btn btn-primary mr-3 d-none d-lg-block" style="color:white;">{% trans %}Déconnexion{% endtrans %}</a>
+							{% else %}
+                        		<a href="{{ path('app_login') }}" class="btn btn-primary mr-3 d-none d-lg-block">{% trans %}Connexion{% endtrans %}</a>
+							{% endif %}
+                    	</div>
+                	</nav>
+            	</div>
+        	</div>
+    	</div>
+    	<!-- Header End -->
+	
+	
+		{% for message in app.flashes('notice') %}
+            <div class=".flash-notice">
+                {{ message }}
+            </div>
+        {% endfor %}
+	
+	
+	
+        {% block body %}{% endblock %}
+		
+		
+		
+		<!-- Footer Start -->
+    	<div class="container-fluid bg-secondary text-white pt-5 px-sm-3 px-md-5" style="margin-top: 90px;">
+        	<div class="row mt-5">
+            	<div class="col-lg-4">
+                	<div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
+                    	<i class="fa fa-2x fa-map-marker-alt text-primary"></i>
+                    	<div class="ml-3">
+                        	<h5 class="text-white">Notre Bureau</h5>
+                        	<p class="m-0">Av.Bokassa, N'djamena, TCHAD</p>
+                    	</div>
+                	</div>
+            	</div>
+            	<div class="col-lg-4">
+                	<div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
+                    	<i class="fa fa-2x fa-envelope-open text-primary"></i>
+                    	<div class="ml-3">
+                        	<h5 class="text-white">Email</h5>
+                        	<p class="m-0">contact@mersy-td.com</p>
+                    	</div>
+                	</div>
+            	</div>
+            	<div class="col-lg-4">
+                	<div class="d-flex justify-content-lg-center p-4" style="background: rgba(256, 256, 256, .05);">
+                    	<i class="fa fa-2x fa-phone-alt text-primary"></i>
+                    	<div class="ml-3">
+                        	<h5 class="text-white">Nous Contactez</h5>
+                        	<p class="m-0">+235 60990037 / 97038256</p>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        	<div class="row pt-5">
+            	<div class="col-lg-3 col-md-6 mb-5">
+                	<a href="index.html" class="navbar-brand">
+                    	<h1 class="m-0 mt-n2 display-4 text-primary text-uppercase">Mersy-SAS</h1>
+                	</a>
+                	<p>Mersy, à travers une équipe expérimentée, vous
+                    	garantissant une qualité, Une fiabilité et une
+                    	technicité irréprochable</p>
+                	<div class="d-flex justify-content-start mt-4">
+                    	<a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="https://www.facebook.com/profile.php?id=100088792884752"><i class="fab fa-facebook-f"></i></a>
+                    	<a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="https://www.linkedin.com/company/mersy-sas/"><i class="fab fa-linkedin-in"></i></a>
+                	</div>
+            	</div>
+            	<div class="col-lg-3 col-md-6 mb-5">
+                	<h4 class="font-weight-semi-bold text-primary mb-4">Liens populaires</h4>
+                	<div class="d-flex flex-column justify-content-start">
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Accueil</a>
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>A propos</a>
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Services</a>
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Attorney</a>
+                    	<a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Contact</a>
+                	</div>
+            	</div>
+            	<div class="col-lg-3 col-md-6 mb-5">
+                	<h4 class="font-weight-semi-bold text-primary mb-4">Lien Rapide</h4>
+                	<div class="d-flex flex-column justify-content-start">
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>FAQs</a>
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Aide</a>
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Terms</a>
+                    	<a class="text-white mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Privacy</a>
+                    	<a class="text-white" href="#"><i class="fa fa-angle-right mr-2"></i>Site Map</a>
+                	</div>
+            	</div>
+            	<div class="col-lg-3 col-md-6 mb-5">
+                	<h4 class="font-weight-semi-bold text-primary mb-4">Newsletter</h4>
+                	<p>Rebum labore lorem dolores kasd est, et ipsum amet et at kasd, ipsum sea tempor magna tempor. Accu kasd sed ea duo ipsum.</p>
+                	<div class="w-100">
+                    	<div class="input-group">
+                        	<input type="text" class="form-control border-0" style="padding: 25px;" placeholder="Your Email">
+                        	<div class="input-group-append">
+                            	<button class="btn btn-primary px-4">Sign Up</button>
+                        	</div>
+                    	</div>
+                	</div>
+            	</div>
+        	</div>
+        	<div class="row p-4 mt-5 mx-0" style="background: rgba(256, 256, 256, .05);">
+            	<div class="col-md-6 text-center text-md-left mb-3 mb-md-0">
+                	<p class="m-0 text-white">&copy; <a class="font-weight-bold" href="#">www.mersy-td.com</a>. All Rights Reserved.</p>
+            	</div>
+            	<div class="col-md-6 text-center text-md-right">
+                	<p class="m-0 text-white">Designed by <a class="font-weight-bold" href="https://htmlcodex.com">HTML Codex</a></p>
+            	</div>
+        	</div>
+    	</div>
+    	<!-- Footer End -->
+
+		
+		
+			<script src="{{ asset('build/assets/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+			{#<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>#}
+    		{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>#}
+			
+			<!-- JavaScript Libraries -->
+    		<script src="{{ asset('build/assets/custom-template/lib/easing/easing.min.js') }}"></script>
+    		<script src="{{ asset('build/assets/custom-template/lib/waypoints/waypoints.min.js') }}"></script>
+    		<script src="{{ asset('build/assets/custom-template/lib/owlcarousel/owl.carousel.min.js') }}"></script>
+    		<script src="{{ asset('build/assets/custom-template/lib/tempusdominus/js/moment.min.js') }}"></script>
+    		<script src="{{ asset('build/assets/custom-template/lib/tempusdominus/js/moment-timezone.min.js') }}"></script>
+    		<script src="{{ asset('build/assets/custom-template/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+			<!-- Template Javascript -->
+			<script src="{{ asset('build/assets/custom-template/js/main.js') }}"></script>
+
+    </body>
+</html>
