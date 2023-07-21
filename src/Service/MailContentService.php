@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\User;
 use PHPMailer\PHPMailer\PHPMailer;
 use App\Entity\LegalCase;
+use App\Entity\Meeting;
 
 class MailContentService
 {
@@ -84,5 +85,15 @@ class MailContentService
         return ['subject' => $subject, 'content' => $content];
 	}
 	
+	public function meetingSuggestionToConsultant(Meeting $meeting): array
+    {
+        $subject = utf8_decode("Rendez-vous avec un client potential");
+        $content = "Salut M./Mme/Mlle <b>" . $meeting->getAssignedTo()->getUser()->getUserDetails()->getFirstName(). " " . $meeting->getAssignedTo()->getUser()->getUserDetails()->getLastName() . "</b><br> Un client potentiel a demandé un meeting:<br>".
+		"Nom: <b>".$meeting->getName()."</b><br>".
+		"Email: <b>". $meeting->getEmail(). "</b><br>".
+		"Temps suggéré: <b>" .$meeting->getDate()->format('d-m-Y H:i:s'). "</b><br>";
+
+        return ['subject' => $subject, 'content' => $content];
+	}
 	
 }
