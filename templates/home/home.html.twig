@@ -127,39 +127,42 @@
                     <div class="col-lg-6 py-5">
                         <div class="rounded p-5 my-5" style="background: rgba(55, 55, 63, .7);">
                             <h1 class="text-center text-white mb-4">un rendez-vous</h1>
-                            <form>
+                            <form action="{{ path('app_arrange_meeting') }}"  method="post">
                                 <div class="form-group">
-                                    <input type="text" class="form-control border-0 p-4" placeholder="Your Name" required="required" />
+                                    <input name="name" type="text" class="form-control border-0 p-4" placeholder="Your Name" required="required" />
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control border-0 p-4" placeholder="Your Email" required="required" />
+                                    <input name="email" type="email" class="form-control border-0 p-4" placeholder="Your Email" required="required" />
                                 </div>
                                 <div class="form-row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <div class="date" id="date" data-target-input="nearest">
-                                                <input type="text" class="form-control border-0 p-4 datetimepicker-input" placeholder="Select Date" data-target="#date" data-toggle="datetimepicker"/>
+                                                <input type="text" class="form-control border-0 p-4 datetimepicker-input" placeholder="Select Date" data-target="#date" data-toggle="datetimepicker" name="date" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <div class="time" id="time" data-target-input="nearest">
-                                                <input type="text" class="form-control border-0 p-4 datetimepicker-input" placeholder="Select Time" data-target="#time" data-toggle="datetimepicker"/>
+                                                <input type="text" class="form-control border-0 p-4 datetimepicker-input" placeholder="Select Time" data-target="#time" data-toggle="datetimepicker" name="time" />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <select class="custom-select border-0 px-4" style="height: 47px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 1</option>
-                                        <option value="3">Service 1</option>
+                                   
+									{% set category_count = 1 %}
+									<select class="custom-select border-0 px-4" style="height: 47px;" name="service">
+                                        <option selected>Choissez le type de service</option>
+										{% for lagalCaseCategory in legalCaseCetegories %}
+											<option value="{{category_count}}">{{lagalCaseCategory}}</option>
+											{% set category_count = category_count+1 %}
+										{% endfor %}
                                     </select>
                                 </div>
                                 <div>
-                                    <button class="btn btn-primary btn-block border-0 py-3" type="submit">prendre Rendez-vous</button>
+                                    <button class="btn btn-primary btn-block border-0 py-3" type="submit" name="arrangeMeeting">prendre Rendez-vous</button>
                                 </div>
                             </form>
                         </div>
