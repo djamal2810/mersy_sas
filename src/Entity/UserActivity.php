@@ -27,6 +27,12 @@ class UserActivity
     #[ORM\OneToMany(mappedBy: 'answeredBy', targetEntity: AnswerToUserQuestion::class)]
     private Collection $answerToUserQuestions;
 
+    #[ORM\OneToMany(mappedBy: 'assignedBy', targetEntity: Meeting::class)]
+    private Collection $assignedByMeetings;
+
+    #[ORM\OneToMany(mappedBy: 'assignedTo', targetEntity: Meeting::class)]
+    private Collection $assignedToMeetings;
+
 
     public function __construct()
     {
@@ -34,6 +40,8 @@ class UserActivity
         $this->announcements = new ArrayCollection();
         $this->userQuestions = new ArrayCollection();
         $this->answerToUserQuestions = new ArrayCollection();
+        $this->assignedByMeetings = new ArrayCollection();
+        $this->assignedToMeetings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -137,6 +145,66 @@ class UserActivity
             // set the owning side to null (unless already changed)
             if ($answerToUserQuestion->getAnsweredBy() === $this) {
                 $answerToUserQuestion->setAnsweredBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Meeting>
+     */
+    public function getAssignedByMeetings(): Collection
+    {
+        return $this->assignedByMeetings;
+    }
+
+    public function addAssignedByMeeting(Meeting $assignedByMeeting): static
+    {
+        if (!$this->assignedByMeetings->contains($assignedByMeeting)) {
+            $this->assignedByMeetings->add($assignedByMeeting);
+            $assignedByMeeting->setAssignedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedByMeeting(Meeting $assignedByMeeting): static
+    {
+        if ($this->assignedByMeetings->removeElement($assignedByMeeting)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedByMeeting->getAssignedBy() === $this) {
+                $assignedByMeeting->setAssignedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Meeting>
+     */
+    public function getAssignedToMeetings(): Collection
+    {
+        return $this->assignedToMeetings;
+    }
+
+    public function addAssignedToMeeting(Meeting $assignedToMeeting): static
+    {
+        if (!$this->assignedToMeetings->contains($assignedToMeeting)) {
+            $this->assignedToMeetings->add($assignedToMeeting);
+            $assignedToMeeting->setAssignedTo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAssignedToMeeting(Meeting $assignedToMeeting): static
+    {
+        if ($this->assignedToMeetings->removeElement($assignedToMeeting)) {
+            // set the owning side to null (unless already changed)
+            if ($assignedToMeeting->getAssignedTo() === $this) {
+                $assignedToMeeting->setAssignedTo(null);
             }
         }
 

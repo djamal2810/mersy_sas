@@ -48,6 +48,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?UserActivity $userActivity = null;
 
+
     public function __construct()
     {
         $this->userActivities = new ArrayCollection();
@@ -275,13 +276,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     }
 
 	public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-        ));
-    }
+                                  {
+                                      return serialize(array(
+                                          $this->id,
+                                          $this->username,
+                                          $this->password,
+                                      ));
+                                  }
 
     public function unserialize($serialized)
     {
