@@ -31,6 +31,7 @@ use App\Constants\Constants;
 use App\Form\LegalCaseFormFlow;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class LegalCaseController extends AbstractController
 {
@@ -765,10 +766,11 @@ class LegalCaseController extends AbstractController
 		$fileExtension = $last_word;
 		
 		//echo $fileExtension.'<br>';
+		$file = $full_path;
 		
 		if($fileExtension==='pdf')
 		{
-			$file = $full_path;
+			
 
 			if(!file_exists($file))
 			{ // file does not exist
@@ -782,21 +784,17 @@ class LegalCaseController extends AbstractController
     			header("Content-Transfer-Encoding: binary");
     			// read the file from disk
     			readfile($file);
-			
-				/*
-				header('Content-type: application/octet-stream');
-				header("Content-Type: ".mime_content_type($file));
-				header("Content-Disposition: attachment; filename=".$legalCaseDocument->getPreferredName());
-				while (ob_get_level()) 
-				{
-					ob_end_clean();
-				}
-				readfile($file);
-				*/
 			}
 		}else
 		{
-			echo 'not pdf.';
+			
+				header("Cache-Control: public");
+				header("Content-Description: File Transfer");
+    			header("Content-Disposition: attachment; filename=".$legalCaseDocument->getPreferredName());
+    			header("Content-Type: application/zip");
+    			header("Content-Transfer-Encoding: binary");
+    			// read the file from disk
+    			readfile($file);
 		}
 		//$file = $legalCaseDocument->getFile();
 		
@@ -829,23 +827,6 @@ class LegalCaseController extends AbstractController
 			{ // file does not exist
     			die('file not found');
 			} else {	
-			
-				// Header content type
-				//header("Content-type: application/pdf");
-  				//header("Content-Length: " . filesize($file));
-		
-				//while (ob_get_level()) 
-				//{
-    			//	ob_end_clean();
-				//}
- 				// Send the file to the browser.
-				//readfile($file);
-			
-				//header('Content-type: application/pdf'); 
-				//header('Content-Disposition: inline; filename="' .$file. '"'); 
-				//header('Content-Transfer-Encoding: binary'); 
-				//header('Accept-Ranges: bytes'); 
-				//@readfile($file);  
 
 				header('Content-type: application/pdf');
 				header('Content-Disposition: inline; filename="' . $file . '"');
@@ -864,7 +845,10 @@ class LegalCaseController extends AbstractController
 			
 		}else
 		{
-			echo $fileExtension.' is not pdf';
+			$file = "/uploads/customer_uploads/".$legalCaseDocument->getFileName();
+			return $this->render('legal_case/legal_case_document_image_visualizer.html.twig', [
+			'image_path' => $file,
+        	]);
 		}
 		
 		
@@ -1100,21 +1084,17 @@ class LegalCaseController extends AbstractController
     			header("Content-Transfer-Encoding: binary");
     			// read the file from disk
     			readfile($file);
-			
-				/*
-				header('Content-type: application/octet-stream');
-				header("Content-Type: ".mime_content_type($file));
-				header("Content-Disposition: attachment; filename=".$legalCaseDocument->getPreferredName());
-				while (ob_get_level()) 
-				{
-				ob_end_clean();
-				}
-				readfile($file);
-				*/
+		
 			}
 		}else
 		{
-			echo $fileExtension.' is not pdf<br>';
+				header("Cache-Control: public");
+				header("Content-Description: File Transfer");
+    			header("Content-Disposition: attachment; filename=".$legalCaseDocument->getPreferredName());
+    			header("Content-Type: application/zip");
+    			header("Content-Transfer-Encoding: binary");
+    			// read the file from disk
+    			readfile($file);
 		}
 		
 		return new Response($full_path);
@@ -1134,6 +1114,7 @@ class LegalCaseController extends AbstractController
 		//$file = $legalCaseDocument->getFile();
 		$file = $full_path;
 		
+		
 		$result;
 		$tmp_file_name =  $legalCaseDocument->getFileName();
    		preg_match('/[^ .]*$/', $tmp_file_name, $result);
@@ -1148,13 +1129,6 @@ class LegalCaseController extends AbstractController
     			die('file not found');
 			} else {
 			
-				//header('Content-type: application/pdf');
-				//header('Content-Disposition: inline; filename="' . $legalCaseDocument->getPreferredName() . '"');
-				//header('Content-Transfer-Encoding: binary');
-				//header('Content-Length: ' . filesize($file));
-				//header('Accept-Ranges: bytes');
-				//@readfile($file);
-			
 				// Header content type
 				header("Content-type: application/pdf");
   				header("Content-Length: " . filesize($file));
@@ -1163,10 +1137,13 @@ class LegalCaseController extends AbstractController
 			}
 		}else
 		{
-			echo $fileExtension.' is not pdf<br>';
+			$file = "/uploads/customer_uploads/".$legalCaseDocument->getFileName();
+			return $this->render('legal_case/legal_case_document_image_visualizer.html.twig', [
+			'image_path' => $file,
+        	]);
 		}
 		
-		return new Response($full_path);
+		return new Response();
     }
 	
 }
