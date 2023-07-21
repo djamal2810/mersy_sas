@@ -1,1 +1,199 @@
+{% extends 'base.html.twig' %}
 
+{% block title %}Rapport Final{% endblock %}
+
+{% block body %}
+
+	<div class="col-lg-8"> <!-- Form div -->
+	
+		{{ form_start(form, { 'attr': {'class': 'finalReportForm', 'enctype': 'multipart/form-data'} }) }}
+	
+			<div class="description">
+			
+				<div class="row">
+					<div class="col-md-6">
+						<div class="block-align-horizontal">
+							{{ form_label(form.referenceNo) }}
+						</div>
+						<div>
+							{{ form_widget(form.referenceNo, {'attr': {'class': 'form-control ie7-margin'}}) }}
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="block-align-horizontal">
+							{{ form_label(form.vf) }}
+						</div>
+						<div>
+							{{ form_widget(form.vf, {'attr': {'class': 'form-control ie7-margin'}}) }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="title-course">
+					<h3>Identité</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<div class="block-align-horizontal">
+							{{ form_label(form.firstName) }}
+						</div>
+						<div>
+							{{ form_widget(form.firstName, {'attr': {'class': 'form-control ie7-margin'}}) }}
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="block-align-horizontal">
+							{{ form_label(form.lastName) }}
+						</div>
+						<div>
+							{{ form_widget(form.lastName, {'attr': {'class': 'form-control ie7-margin'}}) }}
+						</div>
+					</div>
+				</div>
+    			
+				<div class="row">
+					<div class="col-md-4">
+            			<div class="block-align-horizontal">
+                			{{ form_label(form.contact.town) }}
+            			</div>
+            			<div id="ville">
+                			{{ form_widget(form.contact.town, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            			</div>
+        			</div>
+						
+        			<div class="col-md-4">
+            			<div class="block-align-horizontal">
+                			{{ form_label(form.contact.neighborhood) }}
+            			</div>
+            				<div id="quartier">
+                				{{ form_widget(form.contact.neighborhood, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            				</div>
+        				</div>
+
+        				<div class="col-md-4">
+            				<div class="block-align-horizontal">
+                				{{ form_label(form.contact.street) }}
+            				</div>
+            				<div  class="block-align-horizontal">
+            				</div>
+							<div>
+                				{{ form_widget(form.contact.street, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            				</div>
+        				</div>
+    				</div>
+    				<div class="row">
+        				<div class="col-md-4">
+            				<div class="block-align-horizontal">
+                				{{ form_label(form.contact.postalCode) }}
+            				</div>
+            				<div>
+                				{{ form_widget(form.contact.postalCode, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            				</div>
+        				</div>
+        				<div class="col-md-4">
+            				<div class="block-align-horizontal">
+                				{{ form_label(form.contact.telephone) }}
+            				</div>
+            				<div id="telephone">
+                				{{ form_widget(form.contact.telephone, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            				</div>
+        				</div>
+        				<div class="col-md-4">
+            				<div class="block-align-horizontal">
+                				{{ form_label(form.contact.email) }}
+            				</div>
+            				<div id="email">
+                				{{ form_widget(form.contact.email, {'attr': {'class': 'form-control ie7-margin'}}) }}
+            				</div>
+        				</div>
+    				</div>
+				</div>
+				
+				<div class="title-course">
+					<h3>Objet</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div>
+							{{ form_widget(form.subject, {'attr': {'class': 'form-control ie7-margin', 'rows': '5'}}) }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="title-course">
+					<h3>Pièces présentées</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<table id="documents_list" class="table table-bordered table-striped table-condensed">
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>Nom de la Pièce</th>
+									<th>Lire</th>									
+								</tr>
+							</thead>
+							
+							<tbody id="legalCaseDocuments" class="legalCaseDocuments">
+								{% if finalReport.legalCase.legalCaseDocuments |length > 0 %}
+									{% set i = 1 %}
+									{% for legalCaseDocument in finalReport.legalCase.legalCaseDocuments %}
+										<tr id="legalCaseDocument" class="legalCaseDocument">
+											<td>
+												{{ i }}
+											</td>
+											<td>
+												<input type="text" name="legalCaseDocumentPrefferedName_{{legalCaseDocument.id}}" id="legalCaseDocumentPrefferedNameId" class="legalCaseDocumentPrefferedNameClass" value='{{ legalCaseDocument.preferredName }} '>
+												</input>
+											</td>
+											<td>
+												<strong class="btn btn-primary btn-sm" id="legalCaseDocument_{{i}}" >Lire</strong>
+											</td>
+
+										</tr>
+										{% set i = i + 1 %}
+									{% endfor %}
+								{% endif %}	
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="title-course">
+					<h3>Analyse juridique</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div>
+							{{ form_widget(form.legalAnalysis, {'attr': {'class': 'form-control ie7-margin', 'rows': '6'}}) }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="title-course">
+					<h3>Avis juridique</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div>
+							{{ form_widget(form.legalAdvice, {'attr': {'class': 'form-control ie7-margin', 'rows': '6'}}) }}
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div>
+						{{ form_widget(form.save) }}
+					</div>
+				</div>
+				
+			</div>
+			
+			{#{{ form_rest(form) }}#}
+			
+			{{ form_end(form) }}
+		
+	</div>  <!-- End of Form div -->
+			
+
+{% endblock %}
