@@ -84,7 +84,7 @@
     	<div class="container-fluid">
         	<div class="row">
             	<div class="col-lg-3 bg-secondary d-none d-lg-block">
-                	<a href="index.html" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
+                	<a href="{{ path('app_home') }}" class="navbar-brand w-100 h-100 m-0 p-0 d-flex align-items-center justify-content-center">
 						<h1 class="m-0 display-4 text-primary text-uppercase">MERSY-SAS</h1>
                 	</a>
             	</div>
@@ -159,13 +159,18 @@
 											<a href="{{ path('app_customer_legal_cases') }}" class="dropdown-item">{% trans %}Mes demandes{% endtrans %}</a>
 										{% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_CLIENT_SERVICE_PROVIDER') %}
 											<div class="dropdown-divider"></div>
-											<a href="#" class="dropdown-item">{% trans %}Traitement des demandes{% endtrans %}</a>
+											<a href="{{ path('app_agent_legal_cases') }}" class="dropdown-item">{% trans %}Traitement des demandes{% endtrans %}</a>
 										{% elseif is_granted('IS_AUTHENTICATED_REMEMBERED') and is_granted('ROLE_ADMIN') %}
 											<div class="dropdown-divider"></div>
 											<a href="{{ path('app_admin_legal_cases') }}" class="dropdown-item">{% trans %}Gestion de demandes{% endtrans %}</a>
 											<div class="dropdown-divider"></div>
 											<a href="#" class="dropdown-item">{% trans %}Création de comptes{% endtrans %}</a>
 											<a href="{{ path('app_admin_user_account_management') }}" class="dropdown-item">{% trans %}Gestion de comptes{% endtrans %}</a>
+											<div class="dropdown-divider"></div>
+											<a href="{{ path('app_admin_meeting_scheduling') }}" class="dropdown-item">{% trans %}Gestion de rendez-vous{% endtrans %}</a>
+											<div class="dropdown-divider"></div>
+											<a href="{{ path('app_add_newsletter') }}" class="dropdown-item">{% trans %}Création de newsletter{% endtrans %}</a>
+											<a href="{{ path('app_display_newsletters') }}" class="dropdown-item">{% trans %}Gestion de newsletters{% endtrans %}</a>
 										{% endif %}
                                 	</div>
                             	</div>
@@ -264,12 +269,14 @@
                 	<h4 class="font-weight-semi-bold text-primary mb-4">Newsletter</h4>
                 	<p>Rebum labore lorem dolores kasd est, et ipsum amet et at kasd, ipsum sea tempor magna tempor. Accu kasd sed ea duo ipsum.</p>
                 	<div class="w-100">
+					<form action="{{ path('app_send_consfirmation_email') }}"  method="post">
                     	<div class="input-group">
-                        	<input type="text" class="form-control border-0" style="padding: 25px;" placeholder="Your Email">
+                        	<input type="text" name="email" class="form-control border-0" style="padding: 25px;" placeholder="Your Email">
                         	<div class="input-group-append">
-                            	<button class="btn btn-primary px-4">Sign Up</button>
+                            	<button class="btn btn-primary px-4" type="submit" name="newsletterSubscription">Sign Up</button>
                         	</div>
                     	</div>
+					</form>
                 	</div>
             	</div>
         	</div>
